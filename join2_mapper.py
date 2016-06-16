@@ -15,4 +15,4 @@ for line in sys.stdin:
 	key_in     = key_value[0]   #key is first item in list
 	value_in   = key_value[1]   #value is 2nd item 
 	if value_in == "ABC" or value_in.isdigit():
-		print(key_in,"\t",value_in)
+		print(key_in,'\t',value_in)

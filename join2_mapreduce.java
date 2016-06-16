@@ -31,7 +31,7 @@ hdfs dfsadmin -safemode leave
 
 # Debugging python scripts: Confirm that the mapper script is working ok outside 
 # map/reduce, and not using what is in the HDFS file system.
-# cat join1_File*.txt | ./join1_mapper.py | sort | ./join1_reducer.py
+# cat join2_gen*.txt | ./join1_mapperALT.py | sort | ./join1_reducerALT.py
 # If these commands work you should see the all the <word, total count>'s , 
 # and then you can try running in hadoop. 
 
@@ -47,16 +47,13 @@ hdfs dfs -ls /user/cloudera/input
 # Run the Hadoop streaming command for specified input/output...
 hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar \
 -input /user/cloudera/input \
--output /user/cloudera/output_join2 \
--mapper /home/cloudera/"join1_mapper.py" \
--reducer /home/cloudera/"join1_reducer.py" \
+-output /user/cloudera/output_ALT \
+-mapper /home/cloudera/"join1_mapperALT.py" \
+-reducer /home/cloudera/"join1_reducerALT.py" \
 -numReduceTasks 1
 
 # View the output directory...
-hdfs dfs -ls /user/cloudera/output_join2
-
-# Look at the files there and check out the contents...
-hdfs dfs -cat /user/cloudera/output_join2/part-00000
+hdfs dfs -ls /user/cloudera/output_ALT
 
 # Save output file from join as total_viewer_counts.txt...
-hdfs dfs -getmerge /user/cloudera/output_join2/* total_viewer_counts.txt
+hdfs dfs -getmerge /user/cloudera/output_ALT/* total_viewer_counts.txt
